@@ -1,12 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   TextInput,
   StyleSheet,
   useWindowDimensions,
   KeyboardTypeOptions,
+  View,
 } from "react-native";
 import colors from "../styles/colors";
 import EInputType, { EKeyboardType } from "../enum/InputType";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Input = ({
   placeholder,
@@ -19,6 +21,8 @@ const Input = ({
   setInputValue: Dispatch<SetStateAction<string>>;
   inputType: EInputType;
 }) => {
+  const [show, setShow] = useState<boolean>(false);
+
   const styles = useStyle(inputType);
 
   let keyboardType: KeyboardTypeOptions;
@@ -37,19 +41,32 @@ const Input = ({
   }
 
   return (
-    <TextInput
-      secureTextEntry={inputType === EInputType.PASSWORD ? true : false}
-      multiline={inputType === EInputType.TEXTAREA ? true : false}
-      textAlignVertical={inputType === EInputType.TEXTAREA ? "top" : "center"}
-      placeholder={placeholder}
-      placeholderTextColor={colors.lightGrey}
-      value={inputValue}
-      style={styles.input}
-      keyboardType={keyboardType}
-      onChangeText={(text) => {
-        setInputValue(text);
-      }}
-    />
+    <View style={styles.view}>
+      <TextInput
+        secureTextEntry={
+          inputType === EInputType.PASSWORD ? (show ? false : true) : false
+        }
+        multiline={inputType === EInputType.TEXTAREA ? true : false}
+        textAlignVertical={inputType === EInputType.TEXTAREA ? "top" : "center"}
+        placeholder={placeholder}
+        placeholderTextColor={colors.lightGrey}
+        value={inputValue}
+        style={styles.input}
+        keyboardType={keyboardType}
+        onChangeText={(text) => {
+          setInputValue(text);
+        }}
+      />
+      {inputType === EInputType.PASSWORD && (
+        <FontAwesome
+          name={show ? "eye-slash" : "eye"}
+          size={24}
+          color="black"
+          style={styles.eyeFontAwesome}
+          onPress={() => setShow(!show)}
+        />
+      )}
+    </View>
   );
 };
 
@@ -67,6 +84,14 @@ const useStyle = (inputType: EInputType) => {
       width: 0.8 * width,
       alignSelf: "center",
       fontSize: 16,
+    },
+    view: {
+      position: "relative",
+    },
+    eyeFontAwesome: {
+      position: "absolute",
+      right: 0.1 * width,
+      top: 5,
     },
   });
 
