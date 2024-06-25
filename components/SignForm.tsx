@@ -1,5 +1,5 @@
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, ActivityIndicator } from "react-native";
 import airbnbLogo from "./../assets/img/Airbnb-Logo-No-Text.webp";
 import ESign from "../enum/Sign";
 import GreyText from "./GreyText";
@@ -141,7 +141,11 @@ const SignForm = ({ sign }: { sign: ESign }) => {
         )}
       </View>
       <View style={styles.section3}>
-        {errorMessage && <ErrorText isCentered>{errorMessage}</ErrorText>}
+        {errorMessage ? (
+          <ErrorText isCentered>{errorMessage}</ErrorText>
+        ) : (
+          isSignDisabled && <ActivityIndicator />
+        )}
         <Button text={sign} onPress={onSignPress} isDisabled={isSignDisabled} />
         <Link
           isCentered
