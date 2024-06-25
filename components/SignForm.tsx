@@ -1,5 +1,5 @@
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import airbnbLogo from "./../assets/img/Airbnb-Logo-No-Text.webp";
 import Sign from "../enum/Sign";
 import GreyText from "./GreyText";
@@ -7,6 +7,7 @@ import Input from "./Input";
 import EInputType from "../enum/InputType";
 import { useState } from "react";
 import Button from "./Button";
+import Link from "./Link";
 
 const SignForm = ({ sign }: { sign: Sign }) => {
   const [email, setEmail] = useState<string>("");
@@ -48,9 +49,7 @@ const SignForm = ({ sign }: { sign: Sign }) => {
       </View>
       <View style={styles.section3}>
         <Button text={sign} />
-        <GreyText isCentered size={14}>
-          {redirectionText}
-        </GreyText>
+        <Link isCentered href={"/signup"} redirectionText={redirectionText} />
       </View>
     </KeyboardAwareScrollView>
   );
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   section3: {
-    gap: 10,
+    gap: 20,
   },
 });
 
