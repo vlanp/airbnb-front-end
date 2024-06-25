@@ -1,8 +1,8 @@
 import SignForm from "../../components/SignForm";
-import Sign from "../../enum/Sign";
+import ESign from "../../enum/Sign";
 
 const SignUp = () => {
-  return <SignForm sign={Sign.SIGNUP} />;
+  return <SignForm sign={ESign.SIGNUP} />;
 };
 
 export default SignUp;

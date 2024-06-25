@@ -2,11 +2,19 @@ import { Pressable, StyleSheet } from "react-native";
 import GreyText from "./GreyText";
 import colors from "../styles/colors";
 
-const Button = ({ text }: { text: string }) => {
-  const styles = useStyle();
+const Button = ({
+  text,
+  onPress,
+  isDisabled,
+}: {
+  text: string;
+  onPress?: () => void;
+  isDisabled?: boolean;
+}) => {
+  const styles = useStyle(isDisabled);
 
   return (
-    <Pressable style={styles.button}>
+    <Pressable style={styles.button} onPress={onPress} disabled={isDisabled}>
       <GreyText size={20} isCentered isBold>
         {text}
       </GreyText>
@@ -14,10 +22,10 @@ const Button = ({ text }: { text: string }) => {
   );
 };
 
-const useStyle = () => {
+const useStyle = (isDisabled?: boolean) => {
   const styles = StyleSheet.create({
     button: {
-      borderColor: colors.red,
+      borderColor: isDisabled ? colors.grey : colors.red,
       borderWidth: 3,
       paddingVertical: 15,
       width: 200,
