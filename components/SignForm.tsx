@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   scrollViewContainer: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "space-around",
   },
   logo: {
