@@ -21,7 +21,7 @@ const useStyle = (size?: number, isBold?: boolean, isCentered?: boolean) => {
     text: {
       color: colors.grey,
       fontSize: size || 16,
-      fontWeight: isBold ? "bold" : 400,
+      fontWeight: isBold ? "bold" : "regular",
       alignSelf: isCentered ? "center" : "auto",
     },
   });

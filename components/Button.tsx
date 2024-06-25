@@ -29,7 +29,7 @@ const useStyle = (isDisabled?: boolean) => {
       borderWidth: 3,
       paddingVertical: 15,
       width: 200,
-      borderRadius: "50%",
+      borderRadius: 30,
       alignSelf: "center",
     },
   });

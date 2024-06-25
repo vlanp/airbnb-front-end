@@ -9,6 +9,9 @@ import { useState } from "react";
 import Button from "./Button";
 import Link from "./Link";
 import ErrorText from "./ErrorText";
+import axios from "axios";
+import { EErrorEnglish } from "../enum/Error";
+import ISignJson from "../interfaces/SignJson";
 
 const SignForm = ({ sign }: { sign: ESign }) => {
   const [email, setEmail] = useState<string>("");
@@ -19,7 +22,7 @@ const SignForm = ({ sign }: { sign: ESign }) => {
   const [isSignDisabled, setIsSignDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const onSignPress = () => {
+  const onSignPress = async () => {
     setIsSignDisabled(true);
     setErrorMessage("");
     try {
@@ -29,6 +32,7 @@ const SignForm = ({ sign }: { sign: ESign }) => {
       if (password.length === 0) {
         throw new Error("Please enter a password");
       }
+      const json: ISignJson = { email: email, password: password };
       if (sign === ESign.SIGNUP) {
         if (description.length === 0) {
           throw new Error("Please describe yourself");
@@ -39,12 +43,40 @@ const SignForm = ({ sign }: { sign: ESign }) => {
         if (confirmedPassword !== password) {
           throw new Error("Passwords must be the same");
         }
+        json.username = username;
+        json.description = description;
       }
+      const url =
+        "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/" +
+        (sign === ESign.SIGNIN ? "log_in" : "sign_up");
+
+      const response = await axios.post(url, json);
+      console.log(response);
+      alert(sign + " done successfully");
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if ("error" in error.response.data) {
+            setErrorMessage(error.response.data.error);
+          } else {
+            console.log("Back-end response lack the error.");
+            setErrorMessage(EErrorEnglish.UNKNOWN_SIGN_ERROR);
+          }
+        } else if (error.request) {
+          console.log(
+            "No response received. Back-end is down, or back-end is misconfigurated, or there is a front end / back end network error."
+          );
+          setErrorMessage(EErrorEnglish.UNKNOWN_SIGN_ERROR);
+        } else {
+          console.log(
+            "An error occured during the setting up of the request. Must be corrected."
+          );
+          setErrorMessage(EErrorEnglish.UNKNOWN_SIGN_ERROR);
+        }
+      } else if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
-        setErrorMessage("Unknow error occured. Please try later.");
+        setErrorMessage(EErrorEnglish.UNKNOWN_SIGN_ERROR);
       }
     }
     setIsSignDisabled(false);
