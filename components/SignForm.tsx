@@ -1,6 +1,5 @@
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Image, StyleSheet, View, ActivityIndicator } from "react-native";
-import airbnbLogo from "./../assets/img/Airbnb-Logo-No-Text.webp";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import ESign from "../enum/Sign";
 import GreyText from "./GreyText";
 import Input from "./Input";
@@ -14,6 +13,7 @@ import { EErrorEnglish } from "../enum/Error";
 import ISignJson from "../interfaces/SignJson";
 import { AuthContext } from "../context/AuthContext";
 import ISign from "../interfaces/Sign";
+import Logo from "./Logo";
 
 const SignForm = ({ sign }: { sign: ESign }) => {
   const [email, setEmail] = useState<string>("");
@@ -54,7 +54,6 @@ const SignForm = ({ sign }: { sign: ESign }) => {
         (sign === ESign.SIGNIN ? "log_in" : "sign_up");
 
       const response = await axios.post<ISign>(url, json);
-      console.log(response);
       authContext?.saveAuth({
         id: response.data.id,
         token: response.data.token,
@@ -103,7 +102,7 @@ const SignForm = ({ sign }: { sign: ESign }) => {
       style={styles.scrollView}
     >
       <View style={styles.section1}>
-        <Image source={airbnbLogo} style={styles.logo} resizeMode="cover" />
+        <Logo isCentered />
         <GreyText isBold size={30} isCentered>
           {sign}
         </GreyText>
@@ -170,11 +169,6 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     flexGrow: 1,
     justifyContent: "space-around",
-  },
-  logo: {
-    height: 70,
-    width: 70,
-    alignSelf: "center",
   },
   section1: {
     gap: 20,

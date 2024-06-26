@@ -14,12 +14,12 @@ const SlotProvider = () => {
 
   useEffect(() => {
     if (!auth && location[0] !== "(auth)") {
-      router.replace("/");
+      router.replace("/login");
     }
 
-    // if (auth && location[0] !== "(app)") {
-    //   router.replace("/...");
-    // }
+    if (auth && location[0] !== "(app)") {
+      router.replace("/home");
+    }
   }, [auth, location]);
 
   return <Slot />;
