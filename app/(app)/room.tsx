@@ -1,7 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   ScrollView,
   View,
   Text,
@@ -18,6 +17,8 @@ import Constants from "expo-constants";
 import Logo from "../../components/Logo";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../../styles/colors";
+import LottieHome from "../../components/LottieHome";
+import LottieError from "../../components/LottieError";
 
 const Room = () => {
   const [data, setData] = useState<IRoom>();
@@ -48,11 +49,9 @@ const Room = () => {
   }, [id]);
 
   return isLoading ? (
-    <ActivityIndicator />
+    <LottieHome />
   ) : errorMessage ? (
-    <View>
-      <Text>{errorMessage}</Text>
-    </View>
+    <LottieError errorMessage={errorMessage} />
   ) : (
     data && (
       <SafeAreaView style={styles.safeAreaView}>

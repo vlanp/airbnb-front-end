@@ -1,9 +1,7 @@
 import {
   StyleSheet,
-  Text,
   SafeAreaView,
   Platform,
-  ActivityIndicator,
   FlatList,
   View,
 } from "react-native";
@@ -15,6 +13,8 @@ import axios from "axios";
 import { EErrorEnglish } from "../../enum/Error";
 import Logo from "../../components/Logo";
 import colors from "../../styles/colors";
+import LottieHome from "../../components/LottieHome";
+import LottieError from "../../components/LottieError";
 
 const Home = () => {
   const [data, setData] = useState<Array<IRoom>>();
@@ -38,15 +38,10 @@ const Home = () => {
     fetchData();
   }, []);
 
-  /**
-   * @todo Create a error component
-   */
   return isLoading ? (
-    <ActivityIndicator />
+    <LottieHome />
   ) : errorMessage ? (
-    <View>
-      <Text>{errorMessage}</Text>
-    </View>
+    <LottieError errorMessage={errorMessage} />
   ) : (
     data && (
       <SafeAreaView style={styles.safeAreaView}>
