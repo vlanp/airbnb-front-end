@@ -5,13 +5,15 @@ import ESign from "../enum/Sign";
 import GreyText from "./GreyText";
 import Input from "./Input";
 import EInputType from "../enum/InputType";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./Button";
 import Link from "./Link";
 import ErrorText from "./ErrorText";
 import axios from "axios";
 import { EErrorEnglish } from "../enum/Error";
 import ISignJson from "../interfaces/SignJson";
+import { AuthContext } from "../context/AuthContext";
+import ISign from "../interfaces/Sign";
 
 const SignForm = ({ sign }: { sign: ESign }) => {
   const [email, setEmail] = useState<string>("");
@@ -21,6 +23,7 @@ const SignForm = ({ sign }: { sign: ESign }) => {
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
   const [isSignDisabled, setIsSignDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const authContext = useContext(AuthContext);
 
   const onSignPress = async () => {
     setIsSignDisabled(true);
@@ -50,9 +53,12 @@ const SignForm = ({ sign }: { sign: ESign }) => {
         "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/" +
         (sign === ESign.SIGNIN ? "log_in" : "sign_up");
 
-      const response = await axios.post(url, json);
+      const response = await axios.post<ISign>(url, json);
       console.log(response);
-      alert(sign + " done successfully");
+      authContext?.saveAuth({
+        id: response.data.id,
+        token: response.data.token,
+      });
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
