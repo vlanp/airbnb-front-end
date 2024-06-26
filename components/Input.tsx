@@ -53,6 +53,10 @@ const Input = ({
         value={inputValue}
         style={styles.input}
         keyboardType={keyboardType}
+        maxLength={inputType === EInputType.TEXTAREA ? 150 : 30}
+        autoCapitalize={
+          inputType === EInputType.TEXTAREA ? "sentences" : "none"
+        }
         onChangeText={(text) => {
           setInputValue(text);
         }}
