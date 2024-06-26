@@ -30,3 +30,4 @@ interface IAccount {
 }
 
 export default IRoom;
+export { IPicture };

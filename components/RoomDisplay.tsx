@@ -4,10 +4,12 @@ import { StarRatingDisplay } from "react-native-star-rating-widget";
 import colors from "../styles/colors";
 import GreyText from "./GreyText";
 import { Link } from "expo-router";
+import { IPicture } from "../interfaces/Room";
+import Swiper from "./Swipper";
 
 const RoomDisplay = ({
   imgRelativeWidthSize,
-  roomImgUrl,
+  roomImg,
   userImgUrl,
   price,
   rating,
@@ -15,9 +17,10 @@ const RoomDisplay = ({
   title,
   id,
   isBorderBottom,
+  autoplay,
 }: {
   imgRelativeWidthSize: number;
-  roomImgUrl: string;
+  roomImg: IPicture | Array<IPicture>;
   userImgUrl: string;
   price: number;
   rating: number;
@@ -25,6 +28,7 @@ const RoomDisplay = ({
   title: string;
   id: string;
   isBorderBottom?: boolean;
+  autoplay?: boolean;
 }) => {
   const styles = useStyle(isBorderBottom);
   return (
@@ -33,14 +37,23 @@ const RoomDisplay = ({
         style={styles.link}
         href={{ pathname: "/room", params: { id } }}
       ></Link>
-      <RoomImage
-        isCentered
-        price={price}
-        relativeWidthSize={imgRelativeWidthSize}
-        source={{
-          uri: roomImgUrl,
-        }}
-      />
+      {Array.isArray(roomImg) ? (
+        <Swiper
+          imgList={roomImg}
+          price={price}
+          relativeWidthSize={imgRelativeWidthSize}
+          autoplay={autoplay}
+        />
+      ) : (
+        <RoomImage
+          isCentered
+          price={price}
+          relativeWidthSize={imgRelativeWidthSize}
+          source={{
+            uri: roomImg.url,
+          }}
+        />
+      )}
       <View style={styles.section1}>
         <View style={styles.description}>
           <Text numberOfLines={1} style={styles.h3}>

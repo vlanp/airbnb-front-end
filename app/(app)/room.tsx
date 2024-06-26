@@ -64,7 +64,7 @@ const Room = () => {
             numberOfReviews={data.reviews}
             price={data.price}
             rating={data.ratingValue}
-            roomImgUrl={data.photos[0].url}
+            roomImg={data.photos}
             title={data.title}
             userImgUrl={data.user.account.photo.url}
           />

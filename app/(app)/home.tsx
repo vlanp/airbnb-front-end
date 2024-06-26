@@ -62,11 +62,12 @@ const Home = () => {
               numberOfReviews={item.reviews}
               price={item.price}
               rating={item.ratingValue}
-              roomImgUrl={item.photos[0].url}
+              roomImg={item.photos}
               userImgUrl={item.user.account.photo.url}
               title={item.title}
               id={item._id}
               isBorderBottom
+              autoplay
             />
           )}
         />
