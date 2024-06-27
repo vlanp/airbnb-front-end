@@ -8,17 +8,18 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-import IRoom from "../../interfaces/Room";
+import IRoom from "../../../interfaces/Room";
 import axios from "axios";
-import { EErrorEnglish } from "../../enum/Error";
-import RoomDisplay from "../../components/RoomDisplay";
+import { EErrorEnglish } from "../../../enum/Error";
+import RoomDisplay from "../../../components/RoomDisplay";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
-import Logo from "../../components/Logo";
+import Logo from "../../../components/Logo";
 import { AntDesign } from "@expo/vector-icons";
-import colors from "../../styles/colors";
-import LottieHome from "../../components/LottieHome";
-import LottieError from "../../components/LottieError";
+import colors from "../../../styles/colors";
+import LottieHome from "../../../components/LottieHome";
+import LottieError from "../../../components/LottieError";
+import Map from "../../../components/Map";
 
 const Room = () => {
   const [data, setData] = useState<IRoom>();
@@ -90,6 +91,21 @@ const Room = () => {
               color="black"
             />
           </Pressable>
+          <Map
+            markers={[
+              {
+                description: data.description,
+                id: data._id,
+                latitude: data.location[1],
+                longitude: data.location[0],
+                title: data.title,
+              },
+            ]}
+            coordinates={{
+              latitude: data.location[1],
+              longitude: data.location[0],
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
     )
@@ -116,6 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
+    marginBottom: 20,
   },
 });
 

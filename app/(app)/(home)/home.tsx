@@ -6,15 +6,15 @@ import {
   View,
 } from "react-native";
 import Constants from "expo-constants";
-import RoomDisplay from "../../components/RoomDisplay";
+import RoomDisplay from "../../../components/RoomDisplay";
 import { useEffect, useState } from "react";
-import IRoom from "../../interfaces/Room";
+import IRoom from "../../../interfaces/Room";
 import axios from "axios";
-import { EErrorEnglish } from "../../enum/Error";
-import Logo from "../../components/Logo";
-import colors from "../../styles/colors";
-import LottieHome from "../../components/LottieHome";
-import LottieError from "../../components/LottieError";
+import { EErrorEnglish } from "../../../enum/Error";
+import Logo from "../../../components/Logo";
+import colors from "../../../styles/colors";
+import LottieHome from "../../../components/LottieHome";
+import LottieError from "../../../components/LottieError";
 
 const Home = () => {
   const [data, setData] = useState<Array<IRoom>>();
