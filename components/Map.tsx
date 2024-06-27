@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import IMarkers, { ICoordinates } from "../interfaces/Markers";
 import MapView, { Marker } from "react-native-maps";
+import { router } from "expo-router";
 
 const Map = ({
   markers,
@@ -23,6 +24,9 @@ const Map = ({
       {markers?.map((marker) => {
         return (
           <Marker
+            onCalloutPress={() => {
+              router.navigate({ pathname: "/room", params: { id: marker.id } });
+            }}
             key={marker.id}
             coordinate={{
               longitude: marker.longitude,
