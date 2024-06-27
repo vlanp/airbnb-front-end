@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import Logo from "../../../components/Logo";
 
 const HomeLayout = () => {
   return (
@@ -7,9 +8,9 @@ const HomeLayout = () => {
       <Stack.Screen
         name="room"
         options={{
-          headerTransparent: true,
-          title: "",
+          headerTitle: () => <Logo size={30} isCentered />,
           headerBackTitleVisible: false,
+          headerTitleAlign: "center",
         }}
       />
     </Stack>

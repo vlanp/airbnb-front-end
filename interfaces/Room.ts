@@ -11,6 +11,10 @@ interface IRoom {
   __v: number;
 }
 
+interface IAroundRoom extends Omit<IRoom, "user"> {
+  user: string;
+}
+
 interface IPicture {
   url: string;
   picture_id: string;
@@ -30,4 +34,4 @@ interface IAccount {
 }
 
 export default IRoom;
-export { IPicture };
+export { IPicture, IAroundRoom };

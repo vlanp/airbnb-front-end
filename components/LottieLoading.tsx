@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import LottieView from "lottie-react-native";
-import lottieHome from "./../assets/lottie/lottie-home.json";
+import lottieHome from "./../assets/lottie/lottie-home-loading.json";
+import lottieAround from "./../assets/lottie/lottie-around-loading.json";
+import EMainTab from "../enum/MainTab";
 
-const LottieHome = () => {
+const LottieHome = ({ mainTab }: { mainTab: EMainTab }) => {
   return (
     <View style={styles.animationContainer}>
       <LottieView
@@ -12,7 +14,7 @@ const LottieHome = () => {
           width: 150,
           height: 150,
         }}
-        source={lottieHome}
+        source={mainTab === EMainTab.HOME ? lottieHome : lottieAround}
       />
     </View>
   );

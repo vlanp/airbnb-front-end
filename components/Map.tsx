@@ -6,7 +6,7 @@ const Map = ({
   markers,
   coordinates,
 }: {
-  markers: Array<IMarkers>;
+  markers?: Array<IMarkers>;
   coordinates: ICoordinates;
 }) => {
   return (
@@ -18,9 +18,9 @@ const Map = ({
         latitudeDelta: 0.1,
         longitudeDelta: 0.1,
       }}
-      showsUserLocation={false}
+      showsUserLocation
     >
-      {markers.map((marker) => {
+      {markers?.map((marker) => {
         return (
           <Marker
             key={marker.id}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   map: {
     backgroundColor: "blue",
     width: "100%",
-    height: 250,
+    height: "100%",
   },
 });
 

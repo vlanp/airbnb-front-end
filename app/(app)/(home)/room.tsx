@@ -1,25 +1,16 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Platform,
-  StyleSheet,
-  Pressable,
-} from "react-native";
+import { ScrollView, View, Text, StyleSheet, Pressable } from "react-native";
 import IRoom from "../../../interfaces/Room";
 import axios from "axios";
 import { EErrorEnglish } from "../../../enum/Error";
 import RoomDisplay from "../../../components/RoomDisplay";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Constants from "expo-constants";
-import Logo from "../../../components/Logo";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../../../styles/colors";
-import LottieHome from "../../../components/LottieHome";
+import LottieLoading from "../../../components/LottieLoading";
 import LottieError from "../../../components/LottieError";
 import Map from "../../../components/Map";
+import EMainTab from "../../../enum/MainTab";
 
 const Room = () => {
   const [data, setData] = useState<IRoom>();
@@ -50,47 +41,46 @@ const Room = () => {
   }, [id]);
 
   return isLoading ? (
-    <LottieHome />
+    <LottieLoading mainTab={EMainTab.HOME} />
   ) : errorMessage ? (
     <LottieError errorMessage={errorMessage} />
   ) : (
     data && (
-      <SafeAreaView style={styles.safeAreaView}>
-        <Logo size={30} isCentered />
-        <ScrollView>
-          <RoomDisplay
-            id={data._id}
-            imgRelativeWidthSize={1}
-            numberOfReviews={data.reviews}
-            price={data.price}
-            rating={data.ratingValue}
-            roomImg={data.photos}
-            title={data.title}
-            userImgUrl={data.user.account.photo.url}
-          />
-          <View>
-            <Text
-              style={styles.descriptionView}
-              numberOfLines={showMore ? undefined : 3}
-            >
-              {data.description}
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => {
-              setShowMore(!showMore);
-            }}
-            style={styles.pressable}
+      <ScrollView>
+        <RoomDisplay
+          id={data._id}
+          imgRelativeWidthSize={1}
+          numberOfReviews={data.reviews}
+          price={data.price}
+          rating={data.ratingValue}
+          roomImg={data.photos}
+          title={data.title}
+          userImgUrl={data.user.account.photo.url}
+        />
+        <View>
+          <Text
+            style={styles.descriptionView}
+            numberOfLines={showMore ? undefined : 3}
           >
-            <Text style={styles.carret}>
-              {showMore ? "Show less" : "Show more"}
-            </Text>
-            <AntDesign
-              style={styles.carret}
-              name={showMore ? "caretup" : "caretdown"}
-              color="black"
-            />
-          </Pressable>
+            {data.description}
+          </Text>
+        </View>
+        <Pressable
+          onPress={() => {
+            setShowMore(!showMore);
+          }}
+          style={styles.pressable}
+        >
+          <Text style={styles.carret}>
+            {showMore ? "Show less" : "Show more"}
+          </Text>
+          <AntDesign
+            style={styles.carret}
+            name={showMore ? "caretup" : "caretdown"}
+            color="black"
+          />
+        </Pressable>
+        <View style={styles.mapView}>
           <Map
             markers={[
               {
@@ -106,17 +96,13 @@ const Room = () => {
               longitude: data.location[0],
             }}
           />
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </ScrollView>
     )
   );
 };
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    marginTop: Platform.OS === "android" ? Constants.statusBarHeight : 0,
-    gap: 10,
-  },
   descriptionView: {
     width: "90%",
     alignSelf: "center",
@@ -133,6 +119,9 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     marginBottom: 20,
+  },
+  mapView: {
+    height: 250,
   },
 });
 

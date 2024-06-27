@@ -13,8 +13,9 @@ import axios from "axios";
 import { EErrorEnglish } from "../../../enum/Error";
 import Logo from "../../../components/Logo";
 import colors from "../../../styles/colors";
-import LottieHome from "../../../components/LottieHome";
+import LottieLoading from "../../../components/LottieLoading";
 import LottieError from "../../../components/LottieError";
+import EMainTab from "../../../enum/MainTab";
 
 const Home = () => {
   const [data, setData] = useState<Array<IRoom>>();
@@ -39,7 +40,7 @@ const Home = () => {
   }, []);
 
   return isLoading ? (
-    <LottieHome />
+    <LottieLoading mainTab={EMainTab.HOME} />
   ) : errorMessage ? (
     <LottieError errorMessage={errorMessage} />
   ) : (

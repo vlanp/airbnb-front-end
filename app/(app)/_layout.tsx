@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import MainTabIcons from "../../components/MainTabIcons";
 import colors from "../../styles/colors";
 import EMainTab from "../../enum/MainTab";
+import Logo from "../../components/Logo";
 
 const MainLayout = () => {
   return (
@@ -32,6 +33,8 @@ const MainLayout = () => {
           },
           tabBarLabel: EMainTab.AROUND_ME,
           tabBarActiveTintColor: colors.red,
+          headerTitle: () => <Logo size={30} isCentered />,
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
