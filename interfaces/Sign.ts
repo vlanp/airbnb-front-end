@@ -8,4 +8,7 @@ interface ISign {
   rooms: [];
 }
 
+interface IUser extends Omit<ISign, "token" | "rooms"> {}
+
 export default ISign;
+export { IUser };
