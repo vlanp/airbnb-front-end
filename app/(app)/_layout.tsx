@@ -50,6 +50,8 @@ const MainLayout = () => {
           },
           tabBarLabel: EMainTab.MY_PROFILE,
           tabBarActiveTintColor: colors.red,
+          headerTitle: () => <Logo size={30} isCentered />,
+          headerTitleAlign: "center",
         }}
       />
     </Tabs>

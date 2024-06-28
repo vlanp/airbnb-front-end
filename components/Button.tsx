@@ -6,12 +6,14 @@ const Button = ({
   text,
   onPress,
   isDisabled,
+  backgroundColor,
 }: {
   text: string;
   onPress?: () => void;
   isDisabled?: boolean;
+  backgroundColor?: string;
 }) => {
-  const styles = useStyle(isDisabled);
+  const styles = useStyle(isDisabled, backgroundColor);
 
   return (
     <Pressable style={styles.button} onPress={onPress} disabled={isDisabled}>
@@ -22,7 +24,7 @@ const Button = ({
   );
 };
 
-const useStyle = (isDisabled?: boolean) => {
+const useStyle = (isDisabled?: boolean, backgroundColor?: string) => {
   const styles = StyleSheet.create({
     button: {
       borderColor: isDisabled ? colors.grey : colors.red,
@@ -31,6 +33,7 @@ const useStyle = (isDisabled?: boolean) => {
       width: 200,
       borderRadius: 30,
       alignSelf: "center",
+      backgroundColor: backgroundColor && backgroundColor,
     },
   });
   return styles;
