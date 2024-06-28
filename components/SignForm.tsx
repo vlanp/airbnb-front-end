@@ -41,7 +41,7 @@ const SignForm = ({ sign }: { sign: ESign }) => {
           throw new Error("Please describe yourself");
         }
         if (username.length === 0) {
-          throw new Error("Please enter a username");
+          throw new Error("Please enter an username");
         }
         if (confirmedPassword !== password) {
           throw new Error("Passwords must be the same");
